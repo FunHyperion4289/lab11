@@ -62,7 +62,9 @@ public class CustomerDao {
             List<Customer> resultList = query.getResultList();
             for (Customer customer : resultList) {
                 Integer year = customer.getBirthday().getYear();
-                resultMap.put(year, customer);
+                if (!resultMap.containsKey(year) || customer.getCardBalance() > resultMap.get(year).getCardBalance()) {
+                    resultMap.put(year, customer);
+                }
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
